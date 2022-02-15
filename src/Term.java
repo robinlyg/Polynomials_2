@@ -1,7 +1,7 @@
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Term implements Comparable {
+public class Term implements Comparable<Term>, Cloneable {
 
     private int mCoefficient;
     private int mExponent;
@@ -100,11 +100,6 @@ public class Term implements Comparable {
         return Objects.hash(mCoefficient, mExponent);
     }
 
-    //TODO: compareTO - comparing the values of the exponents
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
 
     // toString
     //need to account for empty and for non base, non expnent
@@ -153,5 +148,11 @@ public class Term implements Comparable {
                 return mCoefficient + "x^" + mExponent;
             }
         }
+    }
+
+
+    @Override
+    public int compareTo(Term o) {
+        return Integer.compare(mExponent, o.mExponent);
     }
 }

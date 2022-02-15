@@ -28,6 +28,7 @@ public class Polynomial implements Cloneable {
     //choose which constructor to use based on if it has an expon or not
     public void addTerm(Term term)
     {
+
         //if arrayList.size == 0 just add term
         if(mTerms.size() ==0) {
             mTerms.add(term);
@@ -39,6 +40,10 @@ public class Polynomial implements Cloneable {
                 if (term.getExponent() == this.getTerm(i).getExponent()) {
                     //if they match add coef and set as new coef
                     this.getTerm(i).setCoefficient(term.getCoefficient() + this.getTerm(i).getCoefficient());
+                    if(this.getTerm(i).getCoefficient() == 0)
+                    {
+                        this.mTerms.remove(i);
+                    }
                     return;
                 }
             }
@@ -89,6 +94,7 @@ public class Polynomial implements Cloneable {
        return this.mTerms.size();
     }
 
+
     public void add(Polynomial p)
     {
         for(int i = 0; i <p.getNumTerms(); i++)
@@ -126,18 +132,16 @@ public class Polynomial implements Cloneable {
 
                 if(this.getTerm(i+1).getCoefficient() >= 0)
                 {
-                    poly.append(this.getTerm(i))/*.append("+")*/;
+                    poly.append(this.getTerm(i)).append(" ");
 
                 }
                 //if(this.getTerm(i+1).getCoefficient() < 0)
                 else
                 {
-                    poly.append(this.getTerm(i));
+                    poly.append(this.getTerm(i)).append(" ");
 
                 }
-
             }
-
         }
         poly.append(getTerm(this.mTerms.size()-1));
         return String.valueOf(poly).replaceFirst("\\+", "");
